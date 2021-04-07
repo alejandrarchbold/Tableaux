@@ -119,15 +119,17 @@ def es_literal(f):
 	# Esta función determina si el árbol f es un literal
 	# Input: f, una fórmula como árbol
 	# Output: True/False
-
-	pass
+    if f.label in letrasProposicionales:
+        return True
+    elif f.label == '-' and f.right.label in letrasProposicionales :
+        return True
+    return False
 
 def no_literales(l):
 	# Esta función determina si una lista de fórmulas contiene
 	# solo literales
 	# Input: l, una lista de fórmulas como árboles
 	# Output: None/f, tal que f no es literal
-
 	pass
 
 def clasificacion(f):
@@ -135,7 +137,25 @@ def clasificacion(f):
 	# Input: f, una fórmula como árbol
 	# Output: string de la clasificación de la formula
 
-	pass
+	if f.label == '-':
+        #Para Alfa
+        if f.right.label == '-':
+            return "Alfa1"
+        elif f.right.label == 'O':
+            return "Alfa3"
+        elif f.right.label == '>':
+            return "Alfa4"
+        #Para Beta
+        elif f.right.label == 'Y' :
+            return "Beta1"
+
+    elif f.label == 'Y':
+        return "Alfa2"
+    elif f.label == 'O':
+        return "Beta2"
+    elif f.label == '>':
+        return "Beta3"
+    return "Error, verifique que su formula este bien escrita"
 
 def clasifica_y_extiende(f, h):
 	# Extiende listaHojas de acuerdo a la regla respectiva
