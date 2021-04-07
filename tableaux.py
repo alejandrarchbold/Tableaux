@@ -101,8 +101,11 @@ def complemento(l):
 	# Esta función devuelve el complemento de un literal
 	# Input: l, un literal
 	# Output: x, un literal
+	if l.label == "-":
+        return l.right
+    else:
+        return Tree("-", None, l)
 
-	pass
 
 def par_complementario(l):
 	# Esta función determina si una lista de solo literales
