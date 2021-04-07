@@ -136,7 +136,7 @@ def clasificacion(f):
 	# clasifica una fórmula como alfa o beta
 	# Input: f, una fórmula como árbol
 	# Output: string de la clasificación de la formula
-
+	###
 	if f.label == '-':
         #Para Alfa
         if f.right.label == '-':
@@ -146,7 +146,7 @@ def clasificacion(f):
         elif f.right.label == '>':
             return "Alfa4"
         #Para Beta
-        elif f.right.label == 'Y' :
+        elif f.right.label == 'Y':
             return "Beta1"
 
     elif f.label == 'Y':
@@ -162,7 +162,7 @@ def clasifica_y_extiende(f, h):
 	# Input: f, una fórmula como árbol
 	# 		 h, una hoja (lista de fórmulas como árboles)
 	# Output: no tiene output, pues modifica la variable global listaHojas
-
+	###
 	global listaHojas
 
 	print("Formula:", Inorder(f))
