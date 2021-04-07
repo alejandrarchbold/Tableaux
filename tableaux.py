@@ -101,7 +101,7 @@ def complemento(l):
 	# Esta función devuelve el complemento de un literal
 	# Input: l, un literal
 	# Output: x, un literal
-	if l.label == "-":
+    if l.label == "-":
         return l.right
     else:
         return Tree("-", None, l)
@@ -113,7 +113,15 @@ def par_complementario(l):
 	# Input: l, una lista de literales
 	# Output: True/False
 
-	pass
+    for i in l:
+        l_comp = []
+        for j in l:
+            if j!=i:
+                l_comp.append(j)
+        for c in l_comp:   
+            if (Inorder(complemento(c)) == Inorder(i)):
+                return True
+
 
 def es_literal(f):
 	# Esta función determina si el árbol f es un literal
@@ -121,7 +129,7 @@ def es_literal(f):
 	# Output: True/False
     if f.label in letrasProposicionales:
         return True
-    elif f.label == '-' and f.right.label in letrasProposicionales :
+    elif f.label == '-' and f.right.label in letrasProposicionales:
         return True
     return False
 
@@ -130,14 +138,17 @@ def no_literales(l):
 	# solo literales
 	# Input: l, una lista de fórmulas como árboles
 	# Output: None/f, tal que f no es literal
-	pass
+    for i in l:
+        if (es_literal(i) == False):
+            return i
+    return None
 
 def clasificacion(f):
 	# clasifica una fórmula como alfa o beta
 	# Input: f, una fórmula como árbol
 	# Output: string de la clasificación de la formula
 	###
-	if f.label == '-':
+    if f.label == '-':
         #Para Alfa
         if f.right.label == '-':
             return "Alfa1"
@@ -145,6 +156,7 @@ def clasificacion(f):
             return "Alfa3"
         elif f.right.label == '>':
             return "Alfa4"
+        
         #Para Beta
         elif f.right.label == 'Y':
             return "Beta1"
@@ -163,24 +175,62 @@ def clasifica_y_extiende(f, h):
 	# 		 h, una hoja (lista de fórmulas como árboles)
 	# Output: no tiene output, pues modifica la variable global listaHojas
 	###
-	global listaHojas
-
-	print("Formula:", Inorder(f))
-	print("Hoja:", imprime_hoja(h))
-
-	assert(f in h), "La formula no esta en la lista!"
-
-	clase = clasificacion(f)
-	print("Clasificada como:", clase)
-	assert(clase != None), "Formula incorrecta " + imprime_hoja(h)
-
-	if clase == 'Alfa1':
-		aux = [x for x in h if x != f] + [f.right.right]
-		listaHojas.remove(h)
-		listaHojas.append(aux)
-	elif clase == 'Alfa2':
-		pass
-	# Aqui el resto de casos
+    global listaHojas
+    
+    print("Formula:", Inorder(f))
+    print("Hoja:", imprime_hoja(h))
+    
+    assert(f in h), "La formula no esta en la lista!"
+    
+    clase = clasificacion(f)
+    print("Clasificada como:", clase)
+    assert(clase != None), "Formula incorrecta " + imprime_hoja(h)
+    
+    ### Para Alfa:
+    
+    if clase == 'Alfa1':
+        aux = [x for x in h if x != f] + [f.right.right]
+        listaHojas.remove(h)
+        listaHojas.append(aux)
+        
+    elif clase == 'Alfa2':
+        aux = [x for x in h if x != f] + [f.left, f.right]
+        listaHojas.remove(h)
+        listaHojas.append(aux)
+        
+    elif clase == 'Alfa3':
+        aux = [x for x in h if x != f] + [Tree('-', None, f.right.right), Tree('-', None, f.right.left)]
+        listaHojas.remove(h)
+        listaHojas.append(aux)
+        
+    elif clase == 'Alfa4':
+        aux = [x for x in h if x != f] + [f.right.left, Tree('-', None, f.right.right)]
+        listaHojas.remove(h)
+        listaHojas.append(aux)
+    
+    ### Para Beta:
+        
+        
+    elif clase == 'Beta1':
+        aux = [x for x in h if x != f] + [Tree('-', None, f.right.right)]
+        aux2 = [x for x in h if x != f] + [Tree('-', None, f.right.left)]
+        listaHojas.remove(h)
+        listaHojas.append(aux)
+        listaHojas.append(aux2)
+		
+    elif clase == 'Beta2':
+        aux = [x for x in h if x != f] + [f.right]
+        aux2 = [x for x in h if x != f] + [f.left]
+        listaHojas.remove(h)
+        listaHojas.append(aux)
+        listaHojas.append(aux2)
+        
+    elif clase == 'Beta3':
+        aux = [x for x in h if x != f] + [f.right]
+        aux2 = [x for x in h if x != f] + [Tree('-', None, f.left)]
+        listaHojas.remove(h)
+        listaHojas.append(aux)
+        listaHojas.append(aux2)
 
 
 def Tableaux(f):
