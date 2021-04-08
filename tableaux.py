@@ -239,7 +239,7 @@ def clasifica_y_extiende(f, h):
         listaHojas.append(aux)
         listaHojas.append(aux2)
     
-    #return listaHojas
+    return listaHojas
 
 
 def Tableaux(f):

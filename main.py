@@ -25,7 +25,10 @@ else:
         print(T.imprime_hoja(l))
 
 
-'''
+print("Par complementario:")
+
+print('\n')
+
 t1 = T.par_complementario([T.Tree('1',None,None), T.Tree('2',None,None), T.Tree('-',None,T.Tree('3',None,None)), T.Tree('1',None,None)])
 print(t1)
 
@@ -46,6 +49,9 @@ print(t4)
 
 print('\n')
 
+print("Es Literal:")
+
+print('\n')
 
 t5 = T.es_literal(T.Tree('-',None,T.Tree('p',None,None)))
 print(t5)
@@ -67,6 +73,9 @@ print(t8)
 
 print('\n')
 
+print("no_literal:")
+
+print('\n')
 
 t9 = T.no_literales([T.Tree('-',None,T.Tree('p',None,None)),T.Tree('p',None,None),T.Tree('-',None,T.Tree('q',None,None)),T.Tree('q',None,None)])
 print(t9)
@@ -133,6 +142,9 @@ print(c8)
 
 print('\n')
 
+print("Clasificacion y extiende:")
+
+print('\n')
 
 f1 = T.Inorder2Tree('(pYq)')
 
@@ -140,8 +152,9 @@ h1 = [f1, T.Inorder2Tree('-q')]
 
 listaHojas1 = [h1]
 
-T.imprime_listaHojas(T.clasifica_y_extiende(f1, h1))
+tx = T.clasifica_y_extiende(f1, h1)
 
+T.imprime_listaHojas(tx)
 
 print('\n')
 
@@ -151,7 +164,9 @@ h2 = [f2, T.Inorder2Tree('q'), T.Inorder2Tree('p')]
 
 listaHojas2 = [h2]
 
-T.imprime_listaHojas(T.clasifica_y_extiende(f2, h2))
+tx1 = T.clasifica_y_extiende(f2, h2)
+
+T.imprime_listaHojas(tx1)
 
 print('\n')
 
@@ -161,7 +176,9 @@ h3 = [f3, T.Inorder2Tree('-p')]
 
 listaHojas3 = [h3]
 
-T.imprime_listaHojas(T.clasifica_y_extiende(f3, h3))
+tx2 = T.clasifica_y_extiende(f3, h3)
+
+T.imprime_listaHojas(tx2)
 
 print('\n')
 
@@ -171,7 +188,9 @@ h4 = [f4, T.Inorder2Tree('-p')]
 
 listaHojas4 = [h4]
 
-T.Inorder(T.clasifica_y_extiende(f4, h4))
+tx3 = T.clasifica_y_extiende(f4, h4)
 
-'''
+T.imprime_listaHojas(tx3)
+
+
 
