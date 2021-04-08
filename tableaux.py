@@ -139,9 +139,8 @@ def no_literales(l):
 	# Input: l, una lista de fórmulas como árboles
 	# Output: None/f, tal que f no es literal
     for i in l:
-        if (es_literal(i) == False):
+        if(es_literal(i) == False):
             return i
-    return None
 
 def clasificacion(f):
 	# clasifica una fórmula como alfa o beta
@@ -167,7 +166,7 @@ def clasificacion(f):
         return "Beta2"
     elif f.label == '>':
         return "Beta3"
-    return "Error, verifique que su formula este bien escrita"
+    return "Error en la clasificacion"
 
 def clasifica_y_extiende(f, h):
 	# Extiende listaHojas de acuerdo a la regla respectiva
@@ -190,22 +189,27 @@ def clasifica_y_extiende(f, h):
     
     if clase == 'Alfa1':
         aux = [x for x in h if x != f] + [f.right.right]
-        listaHojas.remove(h)
+        if h in listaHojas:
+            listaHojas.remove(h)
         listaHojas.append(aux)
+    
         
     elif clase == 'Alfa2':
         aux = [x for x in h if x != f] + [f.left, f.right]
-        listaHojas.remove(h)
+        if h in listaHojas:
+            listaHojas.remove(h)
         listaHojas.append(aux)
         
     elif clase == 'Alfa3':
         aux = [x for x in h if x != f] + [Tree('-', None, f.right.right), Tree('-', None, f.right.left)]
-        listaHojas.remove(h)
+        if h in listaHojas:
+            listaHojas.remove(h)
         listaHojas.append(aux)
         
     elif clase == 'Alfa4':
         aux = [x for x in h if x != f] + [f.right.left, Tree('-', None, f.right.right)]
-        listaHojas.remove(h)
+        if h in listaHojas:
+            listaHojas.remove(h)
         listaHojas.append(aux)
     
     ### Para Beta:
@@ -214,23 +218,28 @@ def clasifica_y_extiende(f, h):
     elif clase == 'Beta1':
         aux = [x for x in h if x != f] + [Tree('-', None, f.right.right)]
         aux2 = [x for x in h if x != f] + [Tree('-', None, f.right.left)]
-        listaHojas.remove(h)
+        if h in listaHojas:
+            listaHojas.remove(h)
         listaHojas.append(aux)
         listaHojas.append(aux2)
 		
     elif clase == 'Beta2':
         aux = [x for x in h if x != f] + [f.right]
         aux2 = [x for x in h if x != f] + [f.left]
-        listaHojas.remove(h)
+        if h in listaHojas:
+            listaHojas.remove(h)
         listaHojas.append(aux)
         listaHojas.append(aux2)
         
     elif clase == 'Beta3':
         aux = [x for x in h if x != f] + [f.right]
         aux2 = [x for x in h if x != f] + [Tree('-', None, f.left)]
-        listaHojas.remove(h)
+        if h in listaHojas:
+            listaHojas.remove(h)
         listaHojas.append(aux)
         listaHojas.append(aux2)
+    
+    #return listaHojas
 
 
 def Tableaux(f):
